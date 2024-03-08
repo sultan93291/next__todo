@@ -1,7 +1,7 @@
 {
   /*
    * author: sultan ahmed sanjar
-   * date : 18-07-2023
+   * date : 03-03-204
    * description : this is the user schema model file . this file will create a schema. and all it will describe the schema format
    */
 }

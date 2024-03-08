@@ -19,8 +19,15 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "downlevelIteration": true // Add this line
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/Database/ConnectDb.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/Database/ConnectDb.ts"
+  ],
   "exclude": ["node_modules"]
 }

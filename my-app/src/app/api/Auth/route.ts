@@ -11,6 +11,8 @@
 // 000 == invalid password signature
 // 111 == invalid email signature
 // 333 == invalid name signature
+//888  == invalid profile signature
+
 
 // dependencies
 // external imports
@@ -18,7 +20,8 @@ import { NextRequest, NextResponse } from "next/server";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { configDotenv } from "dotenv";
-import { NextApiResponse } from "next";
+import next, { NextApiResponse, NextApiRequest } from "next";
+import path from "path";
 
 //internal imports
 import { ConnectDb } from "@/Database/ConnectDb";
@@ -28,12 +31,12 @@ configDotenv();
 
 export const POST = async (req: NextRequest, res: NextApiResponse) => {
   try {
-    //connecting to database
-    await ConnectDb();
+    // connecting to database
+    
+    await ConnectDb()
 
-    // destructuring data from request body
     const reqBody = await req.json();
-    const { name, email, password } = reqBody;
+    const { name, email, image, password } = reqBody;
 
     // validate user information
     const NameRegex = /^[A-Za-z.]+(?:[ '.-][A-Za-z]+)*$/;
@@ -54,22 +57,27 @@ export const POST = async (req: NextRequest, res: NextApiResponse) => {
       return new Response(JSON.stringify({ Error: `000` }), { status: 400 });
     }
 
+    if (!image ) {
+      return new Response(JSON.stringify({ Error: `888` }), { status: 400 });
+    }
+
     // hashing password
     const salt = 10;
     const hashedPassword = await bcrypt.hash(password, salt);
-    
+
     // check if user already exists
     let User = await user.findOne({ email: email });
 
     if (User) {
-      return new Response(JSON.stringify({ message: "user ache vai" }), {
-        status: 200,
+      return new Response(JSON.stringify({ message: "User already exist " }), {
+        status: 400,
       });
     } else {
       const newUser = new user({
         username: name,
         email: email,
         password: hashedPassword,
+        image: image,
       });
       await newUser.save();
       const SecretKey = process.env.SECRET_KEY;
@@ -95,6 +103,7 @@ export const POST = async (req: NextRequest, res: NextApiResponse) => {
       return response;
     }
   } catch (e: any) {
+    console.log(e);
     return new Response(JSON.stringify(e.message), {
       status: 500,
     });

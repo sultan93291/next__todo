@@ -1,7 +1,7 @@
 {
   /*
    * author: sultan ahmed sanjar
-   * date : 18-07-2023
+   * date : 03-03-2024
    * description : this is the user schema model file . this file will create a schema. and all it will describe the schema format
    */
 }
@@ -23,6 +23,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required:true
+    }
   },
   {
     timestamps: true,

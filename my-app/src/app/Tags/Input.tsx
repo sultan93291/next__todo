@@ -1,18 +1,23 @@
-import React ,{ChangeEventHandler} from "react";
+import React, { ChangeEventHandler } from "react";
 interface InputProps {
   Type: string;
   Style: string;
   Placeholder: string;
-  name:string
+  name: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  value:string
+  value: string| undefined ;
+  accept?: string;
+  id?: string;
 }
 const Input: React.FC<InputProps> = ({
   Type,
   Style,
   Placeholder,
   onChange,
-  name,value
+  name,
+  value,
+  accept,
+  id
 }) => {
   return (
     <>
@@ -22,7 +27,8 @@ const Input: React.FC<InputProps> = ({
         placeholder={Placeholder}
         onChange={onChange}
         name={name}
-        value={value}
+        value={value as string}
+        accept={accept}
       />
     </>
   );

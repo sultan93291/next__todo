@@ -19,6 +19,7 @@ const Page = () => {
   return (
     <>
       <From
+        enctype="multipart/form-data"
         Data={Data}
         LinkComponent={
           <Link className="text-[18px]  opacity-[0.7] " href={"/"}>

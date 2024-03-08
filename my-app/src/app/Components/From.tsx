@@ -5,23 +5,30 @@ import { AiFillEyeInvisible } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FcAddImage } from "react-icons/fc";
+import Image from "next/image";
+import Email from "next-auth/providers/email";
 
 type JSXElementConstructor<P> = (props: P) => ReactElement<any, any> | null;
 interface From {
   InputComponent: ReactElement<any, string | JSXElementConstructor<any>>[];
   ButtonComponent: ReactElement;
   LinkComponent: ReactElement;
+  enctype: string;
   Data: {
     name?: string;
     email: string;
     password: string;
   };
+  file?: string;
 }
 const From: React.FC<From> = ({
   InputComponent,
   ButtonComponent,
   LinkComponent,
   Data,
+  enctype,
+  file,
 }) => {
   const [Hide, setHide] = useState(false);
   const [Type, setType] = useState("password");
@@ -32,6 +39,7 @@ const From: React.FC<From> = ({
     email: "",
     password: "",
     Credentials: "",
+    image: "",
   });
 
   const router = useRouter();
@@ -58,27 +66,31 @@ const From: React.FC<From> = ({
       setType("password");
     }
   };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     try {
-      const res = axios({
+      const res = await axios({
         method: "post",
         url: login ? "api/Login" : "api/Auth/",
         data: {
-          ...(login ? {} : { name: Data.name }),
           email: Data.email,
           password: Data.password,
+          ...(login ? {} : { image: file, name: Data.name }),
         },
         headers: {
           "Content-Type": "application/json",
         },
       })
         .then(res => {
+          console.log(res);
           if (res.status === 200) {
             router.push(`/profile/${res.data.id}`);
           }
         })
         .catch(err => {
+          console.log(err);
           if (err.response) {
             if (
               err.response &&
@@ -91,6 +103,7 @@ const From: React.FC<From> = ({
                 email: "invalid email signature",
                 password: "",
                 Credentials: "",
+                image: "",
               });
             }
             if (
@@ -104,6 +117,7 @@ const From: React.FC<From> = ({
                 email: "",
                 password: "invalid password signature ",
                 Credentials: "",
+                image: "",
               });
             }
             if (
@@ -117,6 +131,7 @@ const From: React.FC<From> = ({
                 email: "",
                 password: "",
                 Credentials: "invalid credentials",
+                image: "",
               });
             }
             if (
@@ -130,11 +145,28 @@ const From: React.FC<From> = ({
                 email: "",
                 password: "",
                 Credentials: "",
+                image: "",
+              });
+            }
+            if (
+              err.response &&
+              err.response.data &&
+              err.response.data.Error === "888"
+              // error 888 means invalid image signature
+            ) {
+              setError({
+                name: "",
+                email: "",
+                password: "",
+                Credentials: "",
+                image: "please provide a valid image ",
               });
             }
           }
         });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -142,9 +174,25 @@ const From: React.FC<From> = ({
       <div className=" relative h-[100vh] w-[100vw]  flex items-center justify-center ">
         <form
           onSubmit={handleSubmit}
+          encType={enctype}
+          method="post"
+          action={!login ? "api/Auth" : "api/Login"}
           className=" flex flex-col items-center justify-center h-[600px] w-[500px] bg-rgba shadow-2xl absolute gap-5 rounded-[25px] font-nunito "
         >
-          <FaUser className="h-[80px] w-[180px] text-black_rgba hover:text-[rgba(43,171,150,0.5)] transition delay-150 " />
+          {login ? (
+            <FaUser className="h-[80px] w-[50px] text-black_rgba hover:text-[rgba(43,171,150,0.5)] transition delay-150 " />
+          ) : (
+            <FcAddImage className="h-[80px] w-[180px] text-black_rgba hover:text-[rgba(43,171,150,0.5)] transition delay-150 opacity-[0.5] " />
+          )}
+          {Error.image && (
+            <p className="text-[19px] capitalize text-red-800 font-[600]  ">
+              {" "}
+              {Error.image}{" "}
+            </p>
+          )}
+          <div className="  h-[70px] w-[70px] absolute top-0 left-0 mt-[60px] ml-[215px] bg-red  ">
+            {InputComponent[3]}
+          </div>
           <h1 className=" text-black text-[28px] capitalize opacity-[0.6]  ">
             {" "}
             {Data.name && Data.email && Data.password
@@ -200,7 +248,7 @@ const From: React.FC<From> = ({
           )}
           {/* in this condition if user is in login route . then don't need any name . but if he is in any other route like is he is in register route he definitely need to fill the name space  */}
           {(login && Data.email && Data.password) ||
-          (!login && Data.name && Data.email && Data.password) ? (
+          (!login && Data.name && Data.email && Data.password && file ) ? (
             ButtonComponent
           ) : (
             <button

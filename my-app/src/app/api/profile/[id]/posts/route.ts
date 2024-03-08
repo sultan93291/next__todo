@@ -30,6 +30,14 @@ export const GET = async (req: NextRequest, { params }: { params: any }) => {
       });
     }
 
+    const existingUser = await user.findById(params.id);
+
+    if (!existingUser) {
+      return new NextResponse(JSON.stringify({ Error: `no user exist` }), {
+        status: 400,
+      });
+    }
+
     const UserPosts = Todo.map(todo => ({
       Caption: todo.Caption,
       Todo: todo.Todo,
@@ -41,6 +49,15 @@ export const GET = async (req: NextRequest, { params }: { params: any }) => {
       updatedAt: new Date(todo.updatedAt).toLocaleString("en-US", {
         timeZone: "Asia/Dhaka",
       }),
+      ProfileCreatedAt: new Date(existingUser.createdAt).toLocaleString(
+        "en-US",
+        {
+          timeZone: "Asia/Dhaka",
+        }
+      ),
+      username: existingUser.username,
+      email:existingUser.email,
+      image: existingUser.image,
     }));
 
     return new NextResponse(JSON.stringify(UserPosts), {

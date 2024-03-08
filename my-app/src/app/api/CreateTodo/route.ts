@@ -47,8 +47,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       TokenId = (decode as JwtPayload)?.id;
     }
 
-    const todoPattern = /^[a-zA-Z0-9\s]{5,}$/;
-    const todoCaptionPattern = /^[a-zA-Z0-9\s]{5,32}$/;
+    const todoPattern = /^[a-zA-Z0-9\s#.,'!?-]{5,}$/;
+    const todoCaptionPattern = /^[a-zA-Z0-9\s#.,'!?-]{5,32}$/;
 
     if (!todoPattern.test(Todo)) {
       return new NextResponse(JSON.stringify({ Error: `444` }), {
@@ -82,6 +82,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       status: 200,
     });
   } catch (error: any) {
+    console.log(error)
     return new NextResponse(JSON.stringify({ Error: error.message }), {
       status: 500,
     });

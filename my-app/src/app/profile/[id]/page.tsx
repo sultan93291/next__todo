@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import axios from "axios";
+import Image from "next/image";
 
 interface Post {
   Caption: string;
@@ -11,6 +12,10 @@ interface Post {
   UserId: string;
   createdAt: string;
   updatedAt: string;
+  username: string;
+  image: string;
+  ProfileCreatedAt: string;
+  email: string;
 }
 
 const Page = () => {
@@ -25,8 +30,17 @@ const Page = () => {
   const handleEdit = (todoId: string, todo: string, caption: string) => {
     const encodedTodo = encodeURIComponent(todo);
     const encodedCaption = encodeURIComponent(caption);
-    router.push(`/updatetodo/${todoId}?todo=${todo}&caption=${caption}`);
+    router.push(
+      `/updatetodo/${todoId}?todo=${encodedTodo}&caption=${encodedCaption}`
+    );
   };
+
+  // extracting user info
+  let firstPost;
+  if (Data.length > 0) {
+    firstPost = Data[0];
+    console.log(firstPost);
+  }
 
   const handleDelete = useCallback((deleteTodoId: string) => {
     axios({
@@ -62,7 +76,24 @@ const Page = () => {
 
   return (
     <div className="py-[50px] px-[60px]">
-      <button onClick={handleCreate}>create todo</button>
+      <div className="h-[450px] w-[auto] bg-rgba rounded-md    flex items-center px-[50px] ">
+        {firstPost?.image && (
+          <Image
+            src={firstPost.image}
+            alt="none"
+            height={300}
+            width={300}
+            className="rounded-[50%] ring-8 ring-black_rgba ml-5 "
+          />
+        )}
+        <div className="flex flex-col">
+          <button onClick={handleCreate}>create todo</button>
+          <p> {firstPost?.ProfileCreatedAt} </p>
+          <p> {firstPost?.UserId} </p>
+          <p> {firstPost?.username} </p>
+          <p> {firstPost?.email} </p>
+        </div>
+      </div>
       <div className="flex  gap-4 py-[50px] px-[60px]  justify-center  flex-wrap ">
         {Data.map((post, index) => (
           <div
@@ -82,6 +113,15 @@ const Page = () => {
                 edit
               </button>
               <button onClick={() => handleDelete(post._id)}>delete</button>
+              {post.image && (
+                <Image
+                  src={post.image}
+                  alt="none"
+                  height={100}
+                  width={100}
+                  className="rounded-[50%]"
+                />
+              )}
             </div>
           </div>
         ))}
