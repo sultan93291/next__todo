@@ -42,27 +42,36 @@ export const GET = async (req: NextRequest, { params }: { params: any }) => {
       Caption: todo.Caption,
       Todo: todo.Todo,
       _id: todo._id,
-      UserId: todo.UserId,
       createdAt: new Date(todo.createdAt).toLocaleString("en-US", {
         timeZone: "Asia/Dhaka",
       }),
       updatedAt: new Date(todo.updatedAt).toLocaleString("en-US", {
         timeZone: "Asia/Dhaka",
       }),
+    }));
+
+    const UserInfo = {
+      username: existingUser.username,
+      email: existingUser.email,
+      image: existingUser.image,
+      UserId: existingUser._id,
       ProfileCreatedAt: new Date(existingUser.createdAt).toLocaleString(
         "en-US",
         {
           timeZone: "Asia/Dhaka",
         }
       ),
-      username: existingUser.username,
-      email:existingUser.email,
-      image: existingUser.image,
-    }));
+    };
 
-    return new NextResponse(JSON.stringify(UserPosts), {
-      status: 200,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        UserData: UserInfo,
+        UserPost: UserPosts,
+      }),
+      {
+        status: 200,
+      }
+    );
   } catch (err) {
     return new NextResponse(JSON.stringify(err), { status: 500 });
   }

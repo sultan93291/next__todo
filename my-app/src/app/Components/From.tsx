@@ -84,7 +84,6 @@ const From: React.FC<From> = ({
         },
       })
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             router.push(`/profile/${res.data.id}`);
           }
