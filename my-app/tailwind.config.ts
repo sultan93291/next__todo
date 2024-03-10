@@ -17,6 +17,14 @@ const config: Config = {
         roboto: '"Roboto Slab", serif',
         nunito:'"Nunito", sans-serif'
       },
+      screens: {
+        xs: "320px",
+        sm: "465px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1200px",
+        xxl:"1920px"
+      }
     },
   },
   plugins: [],

@@ -55,7 +55,7 @@ export default function Home() {
             name="name"
             onChange={handleForm}
             Placeholder="Enter Your Name"
-            Style="h-[50px] w-[300px] pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black text-[20px] font-[500] opacity-[0.7]"
+            Style="h-[50px] w-[250px] md:w-[300px] pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black text-[18px] md:text-[20px] font-[500] opacity-[0.7]"
             value={Data.name}
           />,
           <Input
@@ -64,7 +64,7 @@ export default function Home() {
             name="password"
             onChange={handleForm}
             Placeholder="Enter Your password"
-            Style=" h-[100%] w-[100%] pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black relative text-[20px] font-[500] opacity-[0.7] "
+            Style=" h-[100%]  w-[100%] pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black relative text-[18px] md:text-[20px] font-[500] opacity-[0.7] "
             value={Data.password}
           />,
           <Input
@@ -73,7 +73,7 @@ export default function Home() {
             name="email"
             onChange={handleForm}
             Placeholder="Enter Your email "
-            Style=" pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[300px] text-[20px] font-[500] opacity-[0.7] "
+            Style=" pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[250px] md:w-[300px] text-[18px] md:text-[20px] font-[500] opacity-[0.7] "
             value={Data.email}
           />,
           <Input
@@ -84,14 +84,14 @@ export default function Home() {
             accept="image/*"
             onChange={handleForm}
             Placeholder=""
-            Style="h-[100%] w-[100%] opacity-0 "
+            Style="h-[100%] w-[100%] opacity-0  "
             value={""}
           />,
         ]}
         ButtonComponent={
           <button
             type="submit"
-            className=" h-[60px] w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
+            className=" h-[50px] w-[150px] md:h-[60px] md:w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
           >
             Register
           </button>

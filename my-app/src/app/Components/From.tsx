@@ -6,8 +6,7 @@ import { FaUser } from "react-icons/fa";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FcAddImage } from "react-icons/fc";
-import Image from "next/image";
-import Email from "next-auth/providers/email";
+
 
 type JSXElementConstructor<P> = (props: P) => ReactElement<any, any> | null;
 interface From {
@@ -176,7 +175,7 @@ const From: React.FC<From> = ({
           encType={enctype}
           method="post"
           action={!login ? "api/Auth" : "api/Login"}
-          className=" flex flex-col items-center justify-center h-[600px] w-[500px] bg-rgba shadow-2xl absolute gap-5 rounded-[25px] font-nunito "
+          className=" flex flex-col items-center justify-center h-[550px] md:h-[600px] w-[300px]  md:w-[500px] bg-rgba shadow-2xl absolute gap-5 rounded-[25px] font-nunito overflow-hidden   "
         >
           {login ? (
             <FaUser className="h-[80px] w-[50px] text-black_rgba hover:text-[rgba(43,171,150,0.5)] transition delay-150 " />
@@ -189,12 +188,12 @@ const From: React.FC<From> = ({
               {Error.image}{" "}
             </p>
           )}
-          <div className="  h-[70px] w-[70px] absolute top-0 left-0 mt-[60px] ml-[215px] bg-red  ">
+          <div className="  h-[70px] w-[70px] absolute top-0 left-0  xs:ml-[115px] mt-[60px]  md:ml-[215px] bg-red  ">
             {InputComponent[3]}
           </div>
           <h1 className=" text-black text-[28px] capitalize opacity-[0.6]  ">
             {" "}
-            {Data.name && Data.email && Data.password
+            {Data.name && Data.email && Data.password && file
               ? "register"
               : "Enter credentials "}
           </h1>
@@ -219,7 +218,7 @@ const From: React.FC<From> = ({
             </p>
           )}
 
-          <div className=" flex h-[50px] w-[300px] relative justify-center  ">
+          <div className=" flex h-[50px] w-[250px] md:w-[300px] relative justify-center  ">
             {React.cloneElement(InputComponent[1], { Type: Type })}
             {Hide ? (
               <AiFillEye
@@ -247,11 +246,11 @@ const From: React.FC<From> = ({
           )}
           {/* in this condition if user is in login route . then don't need any name . but if he is in any other route like is he is in register route he definitely need to fill the name space  */}
           {(login && Data.email && Data.password) ||
-          (!login && Data.name && Data.email && Data.password && file ) ? (
+          (!login && Data.name && Data.email && Data.password && file) ? (
             ButtonComponent
           ) : (
             <button
-              className=" h-[60px] w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
+              className=" h-[50px] w-[150px] md:h-[60px] md:w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
               disabled
             >
               disabled

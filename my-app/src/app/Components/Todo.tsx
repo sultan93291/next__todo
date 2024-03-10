@@ -123,7 +123,7 @@ const TodoComponent = () => {
       <div className=" relative h-[100vh] w-[100vw]  flex items-center justify-center ">
         <form
           onSubmit={HandleTodo}
-          className=" flex flex-col items-center justify-center h-[500px] w-[450px] bg-rgba shadow-2xl absolute gap-5 rounded-[25px] font-nunito "
+          className=" flex flex-col items-center justify-center h-[500px] w-[300px] md:w-[450px] bg-rgba shadow-2xl absolute gap-5 rounded-[25px] font-nunito "
         >
           {Update ? (
             <LuListTodo className="h-[80px] w-[180px] text-black_rgba hover:text-[rgba(43,171,150,0.5)] transition delay-150 " />
@@ -139,7 +139,7 @@ const TodoComponent = () => {
             Type="text"
             onChange={HandleTodoForm}
             name="Todo"
-            Style="  pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[300px] text-[20px] font-[500] opacity-[0.7] capitalize "
+            Style="  pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[250px] md:w-[300px] pl-[30px] text-[18px] md:text-[20px] font-[500] opacity-[0.7] capitalize "
             Placeholder={Update ? "update todo" : "create todo"}
             value={Update && Todo.Todo == "" ? Edit.todo : Todo.Todo}
           />
@@ -153,7 +153,7 @@ const TodoComponent = () => {
             Type="text"
             onChange={HandleTodoForm}
             name="Caption"
-            Style="  pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[300px] text-[20px] font-[500] opacity-[0.7] capitalize "
+            Style="  pl-[30px] pr-[50px] border-none outline-none rounded-[15px] bg-rgba text-black placeholder:text-black h-[50px] w-[250px] md:w-[300px] pl-[30px] text-[18px] md:text-[20px] font-[500] opacity-[0.7] capitalize "
             Placeholder={Update ? "update caption" : "create caption"}
             value={Update && Todo.Caption == "" ? Edit.caption : Todo.Caption}
           />
@@ -165,7 +165,7 @@ const TodoComponent = () => {
           )}
           {Todo.Todo && Todo.Caption ? (
             <button
-              className=" h-[60px] w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
+              className=" h-[50px] w-[150px] md:h-[60px] md:w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
               type="submit"
             >
               {" "}
@@ -173,7 +173,7 @@ const TodoComponent = () => {
             </button>
           ) : (
             <button
-              className=" h-[60px] w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
+              className=" h-[50px] w-[150px] md:h-[60px] md:w-[180px] bg-black_rgba border-2 border-transparent text-black mt-[20px] hover:bg-transparent hover:border-black hover:border-2 rounded-[15px] opacity-[0.7] font-[400] capitalize text-[18px] "
               disabled
             >
               disabled
