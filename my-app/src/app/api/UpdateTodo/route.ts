@@ -36,8 +36,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const reqBody = await req.json();
     const { Todo, caption, id } = reqBody;
 
-    const todoPattern = /^[a-zA-Z0-9\s]{5,}$/;
-    const todoCaptionPattern = /^[a-zA-Z0-9\s]{5,32}$/;
+    const todoPattern = /^[a-zA-Z0-9\s#.,'!?-]{5,}$/;
+    const todoCaptionPattern = /^[a-zA-Z0-9\s#.,'!?-]{5,32}$/;
 
     if (!todoPattern.test(Todo)) {
       return new NextResponse(JSON.stringify({ Error: `444` }), {
