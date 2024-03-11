@@ -15,7 +15,7 @@ const config: Config = {
       fontFamily: {
         poppins: '"Poppins", sans - serif',
         roboto: '"Roboto Slab", serif',
-        nunito:'"Nunito", sans-serif'
+        nunito: '"Nunito", sans-serif',
       },
       screens: {
         xs: "320px",
@@ -23,8 +23,9 @@ const config: Config = {
         md: "768px",
         lg: "1024px",
         xl: "1200px",
-        xxl:"1920px"
-      }
+        xxl: "1600px",
+        xxxl: "1920px",
+      },
     },
   },
   plugins: [],
